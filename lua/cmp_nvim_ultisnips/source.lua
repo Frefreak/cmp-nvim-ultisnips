@@ -22,9 +22,12 @@ function source:get_debug_name()
   return "ultisnips"
 end
 
+local snippets = nil
 function source.complete(self, _, callback)
   local items = {}
-  local snippets = cmpu_snippets.load_snippets(self.expandable_only)
+  if snippets == nil then
+    snippets = cmpu_snippets.load_snippets(self.expandable_only)
+  end
 
   for _, snippet in pairs(snippets) do
     local is_regex_snippet = snippet.options:match("r")
